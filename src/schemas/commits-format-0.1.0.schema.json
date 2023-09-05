@@ -118,6 +118,14 @@
           "description": "The name of the format",
           "pattern": "^[a-zA-Z0-9-_]+$"
         },
+        "aliases": {
+          "type": "array",
+          "description": "The aliases of the format",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]+$"
+          }
+        },
         "description": {
           "type": "string",
           "description": "The description of the format"
