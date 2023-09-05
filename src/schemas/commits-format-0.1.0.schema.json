@@ -35,6 +35,12 @@
           "$ref": "#/$defs/stringTemplateVariable"
         },
         {
+          "$ref": "#/$defs/numberTemplateVariable"
+        },
+        {
+          "$ref": "#/$defs/integerTemplateVariable"
+        },
+        {
           "$ref": "#/$defs/listTemplateVariable"
         },
         {
@@ -52,6 +58,12 @@
       "oneOf": [
         {
           "$ref": "#/$defs/stringTemplateVariable"
+        },
+        {
+          "$ref": "#/$defs/numberTemplateVariable"
+        },
+        {
+          "$ref": "#/$defs/integerTemplateVariable"
         },
         {
           "$ref": "#/$defs/listTemplateVariable"
@@ -244,6 +256,117 @@
         "initial": {
           "type": "boolean",
           "description": "The initial value of the variable"
+        },
+        "includeOn": {
+          "$ref": "#/$defs/includeCondition"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "numberTemplateVariable": {
+      "type": "object",
+      "description": "The numeric variable object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The id of the variable",
+          "pattern": "^#[a-zA-Z0-9-_]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the variable in template"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the variable",
+          "enum": [
+            "number"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the variable"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The prompt to use for the variable in interactive mode"
+        },
+        "value": {
+          "type": "number",
+          "description": "The value of the variable"
+        },
+        "initial": {
+          "type": "number",
+          "description": "The initial value of the variable"
+        },
+        "max": {
+          "type": "number",
+          "description": "The maximum value of the variable"
+        },
+        "min": {
+          "type": "number",
+          "description": "The minimum value of the variable"
+        },
+        "round": {
+          "type": "integer",
+          "description": "The number of decimal places to round the value to",
+          "minimum": 0
+        },
+        "includeOn": {
+          "$ref": "#/$defs/includeCondition"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "integerTemplateVariable": {
+      "type": "object",
+      "description": "The integer variable object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The id of the variable",
+          "pattern": "^#[a-zA-Z0-9-_]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the variable in template"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the variable",
+          "enum": [
+            "integer"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the variable"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The prompt to use for the variable in interactive mode"
+        },
+        "value": {
+          "type": "integer",
+          "description": "The value of the variable"
+        },
+        "initial": {
+          "type": "integer",
+          "description": "The initial value of the variable"
+        },
+        "max": {
+          "type": "integer",
+          "description": "The maximum value of the variable"
+        },
+        "min": {
+          "type": "integer",
+          "description": "The minimum value of the variable"
         },
         "includeOn": {
           "$ref": "#/$defs/includeCondition"
