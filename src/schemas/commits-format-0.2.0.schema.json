@@ -490,12 +490,12 @@
             "$ref": "#/$defs/includeCondition"
           },
           "minItems": 1
-        },
-        "required": [
-          "type",
-          "items"
-        ]
-      }
+        }
+      },
+      "required": [
+        "type",
+        "items"
+      ]
     },
     "arrayTemplateVariable": {
       "type": "object",
