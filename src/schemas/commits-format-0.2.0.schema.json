@@ -228,7 +228,12 @@
           "description": "Whether the variable is optional or not"
         },
         "includeOn": {
-          "$ref": "#/$defs/includeCondition"
+          "type": "array",
+          "description": "The conditions to check if the variable should be included in the template",
+          "items": {
+            "$ref": "#/$defs/includeCondition"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -279,7 +284,12 @@
           "description": "The initial value of the variable"
         },
         "includeOn": {
-          "$ref": "#/$defs/includeCondition"
+          "type": "array",
+          "description": "The conditions to check if the variable should be included in the template",
+          "items": {
+            "$ref": "#/$defs/includeCondition"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -343,7 +353,12 @@
           "minimum": 0
         },
         "includeOn": {
-          "$ref": "#/$defs/includeCondition"
+          "type": "array",
+          "description": "The conditions to check if the variable should be included in the template",
+          "items": {
+            "$ref": "#/$defs/includeCondition"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -402,7 +417,12 @@
           "description": "The minimum value of the variable"
         },
         "includeOn": {
-          "$ref": "#/$defs/includeCondition"
+          "type": "array",
+          "description": "The conditions to check if the variable should be included in the template",
+          "items": {
+            "$ref": "#/$defs/includeCondition"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -464,7 +484,12 @@
           "description": "The separator to use for the array items in interactive mode"
         },
         "includeOn": {
-          "$ref": "#/$defs/includeCondition"
+          "type": "array",
+          "description": "The conditions to check if the variable should be included in the template",
+          "items": {
+            "$ref": "#/$defs/includeCondition"
+          },
+          "minItems": 1
         },
         "required": [
           "type",
@@ -520,7 +545,12 @@
           "description": "The prompt to use to ask is user want to continue adding items to the array"
         },
         "includeOn": {
-          "$ref": "#/$defs/includeCondition"
+          "type": "array",
+          "description": "The conditions to check if the variable should be included in the template",
+          "items": {
+            "$ref": "#/$defs/includeCondition"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -607,7 +637,12 @@
           "description": "The label of initial value of the variable"
         },
         "includeOn": {
-          "$ref": "#/$defs/includeCondition"
+          "type": "array",
+          "description": "The conditions to check if the variable should be included in the template",
+          "items": {
+            "$ref": "#/$defs/includeCondition"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -703,7 +738,12 @@
           }
         },
         "includeOn": {
-          "$ref": "#/$defs/includeCondition"
+          "type": "array",
+          "description": "The conditions to check if the variable should be included in the template",
+          "items": {
+            "$ref": "#/$defs/includeCondition"
+          },
+          "minItems": 1
         }
       },
       "required": [
