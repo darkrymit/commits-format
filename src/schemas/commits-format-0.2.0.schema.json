@@ -186,12 +186,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The id of the variable",
+          "description": "The globally unique id of the variable",
           "pattern": "^#[a-zA-Z0-9-_]+$"
         },
         "name": {
           "type": "string",
-          "description": "The name of the variable in template"
+          "description": "The local name of the variable",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the value of the variable in the template",
+          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
         },
         "type": {
           "type": "string",
@@ -235,12 +241,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The id of the variable",
+          "description": "The globally unique id of the variable",
           "pattern": "^#[a-zA-Z0-9-_]+$"
         },
         "name": {
           "type": "string",
-          "description": "The name of the variable in template"
+          "description": "The local name of the variable",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the value of the variable in the template",
+          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
         },
         "type": {
           "type": "string",
@@ -280,12 +292,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The id of the variable",
+          "description": "The globally unique id of the variable",
           "pattern": "^#[a-zA-Z0-9-_]+$"
         },
         "name": {
           "type": "string",
-          "description": "The name of the variable in template"
+          "description": "The local name of the variable",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the value of the variable in the template",
+          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
         },
         "type": {
           "type": "string",
@@ -338,12 +356,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The id of the variable",
+          "description": "The globally unique id of the variable",
           "pattern": "^#[a-zA-Z0-9-_]+$"
         },
         "name": {
           "type": "string",
-          "description": "The name of the variable in template"
+          "description": "The local name of the variable",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the value of the variable in the template",
+          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
         },
         "type": {
           "type": "string",
@@ -391,12 +415,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The id of the variable",
+          "description": "The globally unique id of the variable",
           "pattern": "^#[a-zA-Z0-9-_]+$"
         },
         "name": {
           "type": "string",
-          "description": "The name of the variable in template"
+          "description": "The local name of the variable",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the value of the variable in the template",
+          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
         },
         "type": {
           "type": "string",
@@ -448,12 +478,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The id of the variable",
+          "description": "The globally unique id of the variable",
           "pattern": "^#[a-zA-Z0-9-_]+$"
         },
         "name": {
           "type": "string",
-          "description": "The name of the variable in template"
+          "description": "The local name of the variable",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the value of the variable in the template",
+          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
         },
         "type": {
           "type": "string",
@@ -498,12 +534,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The id of the variable",
+          "description": "The globally unique id of the variable",
           "pattern": "^#[a-zA-Z0-9-_]+$"
         },
         "name": {
           "type": "string",
-          "description": "The name of the variable in template"
+          "description": "The local name of the variable",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the value of the variable in the template",
+          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
         },
         "type": {
           "type": "string",
@@ -580,12 +622,18 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The id of the variable",
+          "description": "The globally unique id of the variable",
           "pattern": "^#[a-zA-Z0-9-_]+$"
         },
         "name": {
           "type": "string",
-          "description": "The name of the variable in template"
+          "description": "The local name of the variable",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the value of the variable in the template",
+          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
         },
         "type": {
           "type": "string",
