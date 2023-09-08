@@ -43,35 +43,182 @@
               "type": "array",
               "description": "The conditions to check if the variable should be included in the template",
               "items": {
-                "$ref": "#/$defs/variableDefs/$defs/includeDefs/$defs/includeCondition"
+                "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/oneOfAllConditions"
               },
               "minItems": 1
             }
           }
         },
-        "includeDefs": {
+        "includeConditionDefs": {
           "description": "The include condition definitions namespace",
           "$defs": {
-            "includeCondition": {
+            "propertiesDefs": {
+              "description": "The include condition properties definitions namespace",
+              "$defs": {
+                "id": {
+                  "type": "string",
+                  "description": "The unique in array id of the include condition",
+                  "pattern": "^#[a-zA-Z0-9-_]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "The type of the include condition"
+                },
+                "path": {
+                  "type": "string",
+                  "description": "The path of the value to check in the condition",
+                  "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
+                }
+              }
+            },
+            "conditionWithBaseProperties": {
               "type": "object",
-              "additionalProperties": false,
               "required": [
-                "mode"
+                "type"
               ],
               "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "The name of the variable to check"
+                "id": {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/propertiesDefs/$defs/id"
                 },
-                "mode": {
-                  "type": "string",
-                  "description": "The mode of the check",
+                "type": {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/propertiesDefs/$defs/type"
+                }
+              }
+            },
+            "conditionWithVariableToCheck": {
+              "type": "object",
+              "required": [
+                "path"
+              ],
+              "properties": {
+                "path": {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/propertiesDefs/$defs/path"
+                }
+              }
+            },
+            "oneOfAllConditions": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/existCondition"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/notExistCondition"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/trueCondition"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/falseCondition"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/valueCondition"
+                }
+              ]
+            },
+            "existCondition": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithVariableToCheck"
+                }
+              ],
+              "description": "The exist condition object",
+              "properties": {
+                "type": {
                   "enum": [
-                    "exists",
-                    "not-exists",
-                    "true",
+                    "exist"
+                  ]
+                }
+              }
+            },
+            "notExistCondition": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithVariableToCheck"
+                }
+              ],
+              "description": "The not exist condition object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "not-exist"
+                  ]
+                }
+              }
+            },
+            "trueCondition": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
+                }
+              ],
+              "description": "The always true condition object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "true"
+                  ]
+                }
+              }
+            },
+            "falseCondition": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
+                }
+              ],
+              "description": "The always false condition object",
+              "properties": {
+                "type": {
+                  "enum": [
                     "false"
                   ]
+                }
+              }
+            },
+            "valueCondition": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithVariableToCheck"
+                }
+              ],
+              "description": "The value condition object (check if the value is in the values array)",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "value"
+                  ]
+                },
+                "values": {
+                  "description": "The values array to check if the value is in",
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "array"
+                      }
+                    ]
+                  }
                 }
               }
             }
