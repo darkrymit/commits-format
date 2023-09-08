@@ -3,98 +3,416 @@
   "title": "Schema for the commit-format configuration file",
   "type": "object",
   "$defs": {
-    "includeCondition": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "mode"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the variable to check"
-        },
-        "mode": {
-          "type": "string",
-          "description": "The mode of the check",
-          "enum": [
-            "exists",
-            "not-exists",
-            "true",
-            "false"
-          ]
-        }
-      }
-    },
-    "oneOfTemplateVariable": {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/booleanTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/stringTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/numberTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/integerTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/listTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/arrayTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/selectTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/multiselectTemplateVariable"
-        }
-      ]
-    },
-    "selectItems": {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/stringTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/numberTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/integerTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/listTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/arrayTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/selectTemplateVariable"
-        },
-        {
-          "$ref": "#/$defs/multiselectTemplateVariable"
-        }
-      ]
-    },
-    "enumItems": {
-      "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "label",
-            "value"
-          ],
-          "properties": {
-            "label": {
+    "variableDefs": {
+      "description": "The template variables definitions namespace",
+      "$defs": {
+        "propertiesDefs": {
+          "description": "The template variables properties definitions namespace",
+          "$defs": {
+            "id": {
               "type": "string",
-              "description": "The label of the enum value"
+              "description": "The globally unique id of the variable",
+              "pattern": "^#[a-zA-Z0-9-_]+$"
+            },
+            "name": {
+              "type": "string",
+              "description": "The local name of the variable",
+              "pattern": "^[a-zA-Z0-9-_]+$"
+            },
+            "path": {
+              "type": "string",
+              "description": "The path of the value of the variable in the template",
+              "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
+            },
+            "type": {
+              "type": "string",
+              "description": "The type of the variable"
+            },
+            "description": {
+              "type": "string",
+              "description": "The description of the variable"
+            },
+            "prompt": {
+              "type": "string",
+              "description": "The prompt to use for the variable in interactive mode"
             },
             "value": {
-              "description": "The value of the enum value",
+              "description": "The value of the variable"
+            },
+            "includeOn": {
+              "type": "array",
+              "description": "The conditions to check if the variable should be included in the template",
+              "items": {
+                "$ref": "#/$defs/variableDefs/$defs/includeDefs/$defs/includeCondition"
+              },
+              "minItems": 1
+            }
+          }
+        },
+        "includeDefs": {
+          "description": "The include condition definitions namespace",
+          "$defs": {
+            "includeCondition": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name of the variable to check"
+                },
+                "mode": {
+                  "type": "string",
+                  "description": "The mode of the check",
+                  "enum": [
+                    "exists",
+                    "not-exists",
+                    "true",
+                    "false"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "variableWithBasicProperties": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/id"
+            },
+            "name": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/name"
+            },
+            "type": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/type"
+            },
+            "description": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/description"
+            },
+            "includeOn": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/includeOn"
+            }
+          }
+        },
+        "variableWithInputProperties": {
+          "type": "object",
+          "properties": {
+            "prompt": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/prompt"
+            },
+            "path": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/path"
+            },
+            "value": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/value"
+            }
+          }
+        },
+        "oneOfAllVariables": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/stringVariable"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/booleanVariable"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/numberVariable"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/integerVariable"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/listVariable"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/arrayVariable"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/selectVariable"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/multiselectVariable"
+            }
+          ]
+        },
+        "selectAllowedVariables": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/oneOfAllVariables"
+            },
+            {
+              "not": {
+                "$ref": "#/$defs/variableDefs/$defs/booleanVariable"
+              }
+            }
+          ]
+        },
+        "selectEnumItems": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "label",
+                "value"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "description": "The label of the enum value"
+                },
+                "value": {
+                  "description": "The value of the enum value",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "type": "array"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "stringVariable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The string variable object",
+          "properties": {
+            "type": {
+              "enum": [
+                "string"
+              ]
+            },
+            "value": {
+              "type": "string"
+            },
+            "default": {
+              "type": "string",
+              "description": "The default value of the variable"
+            },
+            "optional": {
+              "type": "boolean",
+              "description": "Whether the variable is optional or not"
+            }
+          }
+        },
+        "booleanVariable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The boolean variable object",
+          "properties": {
+            "type": {
+              "enum": [
+                "boolean"
+              ]
+            },
+            "value": {
+              "type": "boolean"
+            },
+            "initial": {
+              "type": "boolean",
+              "description": "The initial value of the variable"
+            }
+          }
+        },
+        "numberVariable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The numeric variable object",
+          "properties": {
+            "type": {
+              "enum": [
+                "number"
+              ]
+            },
+            "value": {
+              "type": "number"
+            },
+            "initial": {
+              "type": "number",
+              "description": "The initial value of the variable"
+            },
+            "max": {
+              "type": "number",
+              "description": "The maximum value of the variable"
+            },
+            "min": {
+              "type": "number",
+              "description": "The minimum value of the variable"
+            },
+            "round": {
+              "type": "integer",
+              "description": "The number of decimal places to round the value to",
+              "minimum": 0
+            }
+          }
+        },
+        "integerVariable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The integer variable object",
+          "properties": {
+            "type": {
+              "enum": [
+                "integer"
+              ]
+            },
+            "value": {
+              "type": "integer"
+            },
+            "initial": {
+              "type": "integer",
+              "description": "The initial value of the variable"
+            },
+            "max": {
+              "type": "integer",
+              "description": "The maximum value of the variable"
+            },
+            "min": {
+              "type": "integer",
+              "description": "The minimum value of the variable"
+            }
+          }
+        },
+        "listVariable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The list variable object",
+          "properties": {
+            "type": {
+              "enum": [
+                "list"
+              ]
+            },
+            "items": {
+              "description": "The items of the array",
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/stringVariable"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/booleanVariable"
+                }
+              ]
+            },
+            "value": {
+              "type": "array"
+            },
+            "separator": {
+              "type": "string",
+              "description": "The separator to use for the array items in interactive mode"
+            }
+          },
+          "required": [
+            "items"
+          ]
+        },
+        "arrayVariable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The array variable object",
+          "properties": {
+            "type": {
+              "enum": [
+                "array"
+              ]
+            },
+            "items": {
+              "description": "The items of the array",
+              "$ref": "#/$defs/variableDefs/$defs/oneOfAllVariables"
+            },
+            "value": {
+              "type": "array"
+            },
+            "continuePrompt": {
+              "type": "string",
+              "description": "The prompt to use to ask is user want to continue adding items to the array"
+            }
+          },
+          "required": [
+            "items"
+          ]
+        },
+        "selectVariable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The select variable object",
+          "properties": {
+            "type": {
+              "enum": [
+                "select"
+              ]
+            },
+            "items": {
+              "description": "The items of the array",
+              "$ref": "#/$defs/variableDefs/$defs/selectAllowedVariables"
+            },
+            "value": {
+              "description": "The value of the variable",
               "oneOf": [
                 {
                   "type": "string"
@@ -112,13 +430,106 @@
                   "type": "array"
                 }
               ]
+            },
+            "enum": {
+              "type": "array",
+              "description": "The enum values of the variable",
+              "items": {
+                "$ref": "#/$defs/variableDefs/$defs/selectEnumItems"
+              }
+            },
+            "disabled": {
+              "type": "array",
+              "description": "The disabled values of the variable",
+              "items": {
+                "description": "The value of label from enum",
+                "type": "string"
+              }
+            },
+            "initial": {
+              "type": "string",
+              "description": "The label of initial value of the variable"
             }
-          }
+          },
+          "required": [
+            "items",
+            "enum"
+          ]
         },
-        {
-          "type": "string"
+        "multiselectVariable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The multiselect variable object",
+          "properties": {
+            "type": {
+              "enum": [
+                "multiselect"
+              ]
+            },
+            "items": {
+              "description": "The items of the array",
+              "$ref": "#/$defs/variableDefs/$defs/selectAllowedVariables"
+            },
+            "value": {
+              "type": "array",
+              "description": "The value of the variable",
+              "items": {
+                "description": "The value of the variable",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "array"
+                  }
+                ]
+              }
+            },
+            "enum": {
+              "type": "array",
+              "description": "The enum values of the variable",
+              "items": {
+                "$ref": "#/$defs/variableDefs/$defs/selectEnumItems"
+              }
+            },
+            "selected": {
+              "type": "array",
+              "description": "The selected values of the variable",
+              "items": {
+                "description": "The value of label from enum",
+                "type": "string"
+              }
+            },
+            "disabled": {
+              "type": "array",
+              "description": "The disabled values of the variable",
+              "items": {
+                "description": "The value of label from enum",
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "items",
+            "enum"
+          ]
         }
-      ]
+      }
     },
     "format": {
       "type": "object",
@@ -147,7 +558,7 @@
           "type": "array",
           "description": "The variables to use for the template",
           "items": {
-            "$ref": "#/$defs/oneOfTemplateVariable"
+            "$ref": "#/$defs/variableDefs/$defs/oneOfAllVariables"
           }
         },
         "template": {
@@ -178,578 +589,6 @@
       },
       "required": [
         "name"
-      ]
-    },
-    "stringTemplateVariable": {
-      "type": "object",
-      "description": "The string variable object",
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The globally unique id of the variable",
-          "pattern": "^#[a-zA-Z0-9-_]+$"
-        },
-        "name": {
-          "type": "string",
-          "description": "The local name of the variable",
-          "pattern": "^[a-zA-Z0-9-_]+$"
-        },
-        "path": {
-          "type": "string",
-          "description": "The path of the value of the variable in the template",
-          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the variable",
-          "enum": [
-            "string"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the variable"
-        },
-        "prompt": {
-          "type": "string",
-          "description": "The prompt to use for the variable in interactive mode"
-        },
-        "value": {
-          "type": "string",
-          "description": "The value of the variable"
-        },
-        "default": {
-          "type": "string",
-          "description": "The default value of the variable"
-        },
-        "optional": {
-          "type": "boolean",
-          "description": "Whether the variable is optional or not"
-        },
-        "includeOn": {
-          "type": "array",
-          "description": "The conditions to check if the variable should be included in the template",
-          "items": {
-            "$ref": "#/$defs/includeCondition"
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "type"
-      ]
-    },
-    "booleanTemplateVariable": {
-      "type": "object",
-      "description": "The boolean variable object",
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The globally unique id of the variable",
-          "pattern": "^#[a-zA-Z0-9-_]+$"
-        },
-        "name": {
-          "type": "string",
-          "description": "The local name of the variable",
-          "pattern": "^[a-zA-Z0-9-_]+$"
-        },
-        "path": {
-          "type": "string",
-          "description": "The path of the value of the variable in the template",
-          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the variable",
-          "enum": [
-            "boolean"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the variable"
-        },
-        "prompt": {
-          "type": "string",
-          "description": "The prompt to use for the variable in interactive mode"
-        },
-        "value": {
-          "type": "boolean",
-          "description": "The value of the variable"
-        },
-        "initial": {
-          "type": "boolean",
-          "description": "The initial value of the variable"
-        },
-        "includeOn": {
-          "type": "array",
-          "description": "The conditions to check if the variable should be included in the template",
-          "items": {
-            "$ref": "#/$defs/includeCondition"
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "type"
-      ]
-    },
-    "numberTemplateVariable": {
-      "type": "object",
-      "description": "The numeric variable object",
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The globally unique id of the variable",
-          "pattern": "^#[a-zA-Z0-9-_]+$"
-        },
-        "name": {
-          "type": "string",
-          "description": "The local name of the variable",
-          "pattern": "^[a-zA-Z0-9-_]+$"
-        },
-        "path": {
-          "type": "string",
-          "description": "The path of the value of the variable in the template",
-          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the variable",
-          "enum": [
-            "number"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the variable"
-        },
-        "prompt": {
-          "type": "string",
-          "description": "The prompt to use for the variable in interactive mode"
-        },
-        "value": {
-          "type": "number",
-          "description": "The value of the variable"
-        },
-        "initial": {
-          "type": "number",
-          "description": "The initial value of the variable"
-        },
-        "max": {
-          "type": "number",
-          "description": "The maximum value of the variable"
-        },
-        "min": {
-          "type": "number",
-          "description": "The minimum value of the variable"
-        },
-        "round": {
-          "type": "integer",
-          "description": "The number of decimal places to round the value to",
-          "minimum": 0
-        },
-        "includeOn": {
-          "type": "array",
-          "description": "The conditions to check if the variable should be included in the template",
-          "items": {
-            "$ref": "#/$defs/includeCondition"
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "type"
-      ]
-    },
-    "integerTemplateVariable": {
-      "type": "object",
-      "description": "The integer variable object",
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The globally unique id of the variable",
-          "pattern": "^#[a-zA-Z0-9-_]+$"
-        },
-        "name": {
-          "type": "string",
-          "description": "The local name of the variable",
-          "pattern": "^[a-zA-Z0-9-_]+$"
-        },
-        "path": {
-          "type": "string",
-          "description": "The path of the value of the variable in the template",
-          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the variable",
-          "enum": [
-            "integer"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the variable"
-        },
-        "prompt": {
-          "type": "string",
-          "description": "The prompt to use for the variable in interactive mode"
-        },
-        "value": {
-          "type": "integer",
-          "description": "The value of the variable"
-        },
-        "initial": {
-          "type": "integer",
-          "description": "The initial value of the variable"
-        },
-        "max": {
-          "type": "integer",
-          "description": "The maximum value of the variable"
-        },
-        "min": {
-          "type": "integer",
-          "description": "The minimum value of the variable"
-        },
-        "includeOn": {
-          "type": "array",
-          "description": "The conditions to check if the variable should be included in the template",
-          "items": {
-            "$ref": "#/$defs/includeCondition"
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "type"
-      ]
-    },
-    "listTemplateVariable": {
-      "type": "object",
-      "description": "The list variable object",
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The globally unique id of the variable",
-          "pattern": "^#[a-zA-Z0-9-_]+$"
-        },
-        "name": {
-          "type": "string",
-          "description": "The local name of the variable",
-          "pattern": "^[a-zA-Z0-9-_]+$"
-        },
-        "path": {
-          "type": "string",
-          "description": "The path of the value of the variable in the template",
-          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the variable",
-          "enum": [
-            "list"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the variable"
-        },
-        "prompt": {
-          "type": "string",
-          "description": "The prompt to use for the variable in interactive mode"
-        },
-        "items": {
-          "description": "The items of the array",
-          "oneOf": [
-            {
-              "$ref": "#/$defs/stringTemplateVariable"
-            },
-            {
-              "$ref": "#/$defs/booleanTemplateVariable"
-            }
-          ]
-        },
-        "value": {
-          "type": "array",
-          "description": "The value of the variable"
-        },
-        "separator": {
-          "type": "string",
-          "description": "The separator to use for the array items in interactive mode"
-        },
-        "includeOn": {
-          "type": "array",
-          "description": "The conditions to check if the variable should be included in the template",
-          "items": {
-            "$ref": "#/$defs/includeCondition"
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "type",
-        "items"
-      ]
-    },
-    "arrayTemplateVariable": {
-      "type": "object",
-      "description": "The array variable object",
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The globally unique id of the variable",
-          "pattern": "^#[a-zA-Z0-9-_]+$"
-        },
-        "name": {
-          "type": "string",
-          "description": "The local name of the variable",
-          "pattern": "^[a-zA-Z0-9-_]+$"
-        },
-        "path": {
-          "type": "string",
-          "description": "The path of the value of the variable in the template",
-          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the variable",
-          "enum": [
-            "array"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the variable"
-        },
-        "prompt": {
-          "type": "string",
-          "description": "The prompt to use for the variable in interactive mode"
-        },
-        "items": {
-          "description": "The items of the array",
-          "$ref": "#/$defs/oneOfTemplateVariable"
-        },
-        "value": {
-          "type": "array",
-          "description": "The value of the variable"
-        },
-        "continuePrompt": {
-          "type": "string",
-          "description": "The prompt to use to ask is user want to continue adding items to the array"
-        },
-        "includeOn": {
-          "type": "array",
-          "description": "The conditions to check if the variable should be included in the template",
-          "items": {
-            "$ref": "#/$defs/includeCondition"
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "type",
-        "items"
-      ]
-    },
-    "selectTemplateVariable": {
-      "type": "object",
-      "description": "The string enum variable object",
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The globally unique id of the variable",
-          "pattern": "^#[a-zA-Z0-9-_]+$"
-        },
-        "name": {
-          "type": "string",
-          "description": "The local name of the variable",
-          "pattern": "^[a-zA-Z0-9-_]+$"
-        },
-        "path": {
-          "type": "string",
-          "description": "The path of the value of the variable in the template",
-          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the variable",
-          "enum": [
-            "select"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the variable"
-        },
-        "prompt": {
-          "type": "string",
-          "description": "The prompt to use for the variable in interactive mode"
-        },
-        "items": {
-          "description": "The items of the array",
-          "$ref": "#/$defs/selectItems"
-        },
-        "value": {
-          "description": "The value of the variable",
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "integer"
-            },
-            {
-              "type": "object"
-            },
-            {
-              "type": "array"
-            }
-          ]
-        },
-        "enum": {
-          "type": "array",
-          "description": "The enum values of the variable",
-          "items": {
-            "$ref": "#/$defs/enumItems"
-          }
-        },
-        "disabled": {
-          "type": "array",
-          "description": "The disabled values of the variable",
-          "items": {
-            "description": "The value of label from enum",
-            "type": "string"
-          }
-        },
-        "initial": {
-          "type": "string",
-          "description": "The label of initial value of the variable"
-        },
-        "includeOn": {
-          "type": "array",
-          "description": "The conditions to check if the variable should be included in the template",
-          "items": {
-            "$ref": "#/$defs/includeCondition"
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "type",
-        "items",
-        "enum"
-      ]
-    },
-    "multiselectTemplateVariable": {
-      "type": "object",
-      "description": "The array enum variable object",
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The globally unique id of the variable",
-          "pattern": "^#[a-zA-Z0-9-_]+$"
-        },
-        "name": {
-          "type": "string",
-          "description": "The local name of the variable",
-          "pattern": "^[a-zA-Z0-9-_]+$"
-        },
-        "path": {
-          "type": "string",
-          "description": "The path of the value of the variable in the template",
-          "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the variable",
-          "enum": [
-            "multiselect"
-          ]
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the variable"
-        },
-        "prompt": {
-          "type": "string",
-          "description": "The prompt to use for the variable in interactive mode"
-        },
-        "items": {
-          "description": "The items of the array",
-          "$ref": "#/$defs/selectItems"
-        },
-        "value": {
-          "type": "array",
-          "description": "The value of the variable",
-          "items": {
-            "description": "The value of the variable",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "integer"
-              },
-              {
-                "type": "object"
-              },
-              {
-                "type": "array"
-              }
-            ]
-          }
-        },
-        "enum": {
-          "type": "array",
-          "description": "The enum values of the variable",
-          "items": {
-            "$ref": "#/$defs/enumItems"
-          }
-        },
-        "selected": {
-          "type": "array",
-          "description": "The selected values of the variable",
-          "items": {
-            "description": "The value of label from enum",
-            "type": "string"
-          }
-        },
-        "disabled": {
-          "type": "array",
-          "description": "The disabled values of the variable",
-          "items": {
-            "description": "The value of label from enum",
-            "type": "string"
-          }
-        },
-        "includeOn": {
-          "type": "array",
-          "description": "The conditions to check if the variable should be included in the template",
-          "items": {
-            "$ref": "#/$defs/includeCondition"
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "type",
-        "items",
-        "enum"
       ]
     }
   },
