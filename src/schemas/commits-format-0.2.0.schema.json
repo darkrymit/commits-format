@@ -135,9 +135,7 @@
               "description": "The exist condition object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "exist"
-                  ]
+                  "const": "exist"
                 }
               }
             },
@@ -153,9 +151,7 @@
               "description": "The not exist condition object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "not-exist"
-                  ]
+                  "const": "not-exist"
                 }
               }
             },
@@ -168,9 +164,7 @@
               "description": "The always true condition object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "true"
-                  ]
+                  "const": "true"
                 }
               }
             },
@@ -183,9 +177,7 @@
               "description": "The always false condition object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "false"
-                  ]
+                  "const": "false"
                 }
               }
             },
@@ -201,9 +193,7 @@
               "description": "The value condition object (check if the value is in the values array)",
               "properties": {
                 "type": {
-                  "enum": [
-                    "value"
-                  ]
+                  "const": "value"
                 },
                 "values": {
                   "description": "The values array to check if the value is in",
@@ -304,9 +294,7 @@
               "description": "The min hint object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "min"
-                  ]
+                  "const": "min"
                 },
                 "value": {
                   "type": "number",
@@ -327,9 +315,7 @@
               "description": "The max hint object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "max"
-                  ]
+                  "const": "max"
                 },
                 "value": {
                   "type": "number",
@@ -350,9 +336,7 @@
               "description": "The round hint object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "round"
-                  ]
+                  "const": "round"
                 },
                 "value": {
                   "type": "integer",
@@ -370,9 +354,7 @@
               "description": "The step hint object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "step"
-                  ]
+                  "const": "step"
                 },
                 "value": {
                   "type": "number",
@@ -389,9 +371,7 @@
               "description": "The required hint object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "required"
-                  ]
+                  "const": "required"
                 }
               }
             },
@@ -404,9 +384,7 @@
               "description": "The unique hint object",
               "properties": {
                 "type": {
-                  "enum": [
-                    "unique"
-                  ]
+                  "const": "unique"
                 }
               }
             }
@@ -545,9 +523,7 @@
           "description": "The string variable object",
           "properties": {
             "type": {
-              "enum": [
-                "string"
-              ]
+              "const": "string"
             },
             "value": {
               "type": "string"
@@ -574,9 +550,7 @@
           "description": "The boolean variable object",
           "properties": {
             "type": {
-              "enum": [
-                "boolean"
-              ]
+              "const": "boolean"
             },
             "value": {
               "type": "boolean"
@@ -599,9 +573,7 @@
           "description": "The numeric variable object",
           "properties": {
             "type": {
-              "enum": [
-                "number"
-              ]
+              "const": "number"
             },
             "value": {
               "type": "number"
@@ -624,9 +596,7 @@
           "description": "The integer variable object",
           "properties": {
             "type": {
-              "enum": [
-                "integer"
-              ]
+              "const": "integer"
             },
             "value": {
               "type": "integer"
@@ -649,9 +619,7 @@
           "description": "The list variable object",
           "properties": {
             "type": {
-              "enum": [
-                "list"
-              ]
+              "const": "list"
             },
             "items": {
               "description": "The items of the array",
@@ -688,9 +656,7 @@
           "description": "The array variable object",
           "properties": {
             "type": {
-              "enum": [
-                "array"
-              ]
+              "const": "array"
             },
             "items": {
               "description": "The items of the array",
@@ -720,9 +686,7 @@
           "description": "The select variable object",
           "properties": {
             "type": {
-              "enum": [
-                "select"
-              ]
+              "const": "select"
             },
             "items": {
               "description": "The items of the array",
@@ -785,9 +749,7 @@
           "description": "The multiselect variable object",
           "properties": {
             "type": {
-              "enum": [
-                "multiselect"
-              ]
+              "const": "multiselect"
             },
             "items": {
               "description": "The items of the array",
@@ -886,9 +848,7 @@
             "mode": {
               "type": "string",
               "description": "The mode of the render",
-              "enum": [
-                "string-literal"
-              ]
+              "const": "string-literal"
             },
             "string": {
               "type": "string",
