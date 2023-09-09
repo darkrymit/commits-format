@@ -46,6 +46,14 @@
                 "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/oneOfAllConditions"
               },
               "minItems": 1
+            },
+            "hints": {
+              "type": "array",
+              "description": "The hints to use for the variable",
+              "items": {
+                "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/oneOfAllHints"
+              },
+              "minItems": 1
             }
           }
         },
@@ -224,6 +232,186 @@
             }
           }
         },
+        "hintDefs": {
+          "description": "The template variables hints definitions namespace",
+          "$defs": {
+            "propertiesDefs": {
+              "description": "The template variables hints properties definitions namespace",
+              "$defs": {
+                "id": {
+                  "type": "string",
+                  "description": "The globally unique id of the hint",
+                  "pattern": "^#[a-zA-Z0-9-_]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "The type of the hint"
+                }
+              }
+            },
+            "hintWithBaseProperties": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/propertiesDefs/$defs/id"
+                },
+                "type": {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/propertiesDefs/$defs/type"
+                }
+              }
+            },
+            "hintReference": {
+              "type": "string",
+              "enum": [
+                "required",
+                "unique"
+              ]
+            },
+            "oneOfAllHints": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintReference"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/requiredHint"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/uniqueHint"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/minHint"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/maxHint"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/roundHint"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/stepHint"
+                }
+              ]
+            },
+            "minHint": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The min hint object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "min"
+                  ]
+                },
+                "value": {
+                  "type": "number",
+                  "description": "The minimum for the variable have different behavior based on the type of the variable"
+                },
+                "exclusive": {
+                  "type": "boolean",
+                  "description": "Whether the minimum value is exclusive or not"
+                }
+              }
+            },
+            "maxHint": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The max hint object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "max"
+                  ]
+                },
+                "value": {
+                  "type": "number",
+                  "description": "The maximum for the variable have different behavior based on the type of the variable"
+                },
+                "exclusive": {
+                  "type": "boolean",
+                  "description": "Whether the minimum value is exclusive or not"
+                }
+              }
+            },
+            "roundHint": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The round hint object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "round"
+                  ]
+                },
+                "value": {
+                  "type": "integer",
+                  "description": "The number of decimal places to round the value to",
+                  "minimum": 0
+                }
+              }
+            },
+            "stepHint": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The step hint object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "step"
+                  ]
+                },
+                "value": {
+                  "type": "number",
+                  "description": "The step for the number or integer variable (for integer variable the step is rounded to the nearest integer)"
+                }
+              }
+            },
+            "requiredHint": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The required hint object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "required"
+                  ]
+                }
+              }
+            },
+            "uniqueHint": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The unique hint object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "unique"
+                  ]
+                }
+              }
+            }
+          }
+        },
         "variableWithBasicProperties": {
           "type": "object",
           "required": [
@@ -244,6 +432,9 @@
             },
             "includeOn": {
               "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/includeOn"
+            },
+            "hints": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/hints"
             }
           }
         },
@@ -418,19 +609,6 @@
             "initial": {
               "type": "number",
               "description": "The initial value of the variable"
-            },
-            "max": {
-              "type": "number",
-              "description": "The maximum value of the variable"
-            },
-            "min": {
-              "type": "number",
-              "description": "The minimum value of the variable"
-            },
-            "round": {
-              "type": "integer",
-              "description": "The number of decimal places to round the value to",
-              "minimum": 0
             }
           }
         },
@@ -456,14 +634,6 @@
             "initial": {
               "type": "integer",
               "description": "The initial value of the variable"
-            },
-            "max": {
-              "type": "integer",
-              "description": "The maximum value of the variable"
-            },
-            "min": {
-              "type": "integer",
-              "description": "The minimum value of the variable"
             }
           }
         },
