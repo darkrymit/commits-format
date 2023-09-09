@@ -107,23 +107,23 @@
             "oneOfAllConditions": {
               "oneOf": [
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/existCondition"
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/exist"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/notExistCondition"
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/notExist"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/trueCondition"
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/true"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/falseCondition"
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/false"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/valueCondition"
+                  "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/value"
                 }
               ]
             },
-            "existCondition": {
+            "exist": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
@@ -139,7 +139,7 @@
                 }
               }
             },
-            "notExistCondition": {
+            "notExist": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
@@ -155,7 +155,7 @@
                 }
               }
             },
-            "trueCondition": {
+            "true": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
@@ -168,7 +168,7 @@
                 }
               }
             },
-            "falseCondition": {
+            "false": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
@@ -181,7 +181,7 @@
                 }
               }
             },
-            "valueCondition": {
+            "value": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/includeConditionDefs/$defs/conditionWithBaseProperties"
@@ -266,26 +266,26 @@
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintReference"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/requiredHint"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/required"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/uniqueHint"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/unique"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/minHint"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/min"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/maxHint"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/max"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/roundHint"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/round"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/stepHint"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/step"
                 }
               ]
             },
-            "minHint": {
+            "min": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -306,7 +306,7 @@
                 }
               }
             },
-            "maxHint": {
+            "max": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -327,7 +327,7 @@
                 }
               }
             },
-            "roundHint": {
+            "round": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -345,7 +345,7 @@
                 }
               }
             },
-            "stepHint": {
+            "step": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -362,7 +362,7 @@
                 }
               }
             },
-            "requiredHint": {
+            "required": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -375,7 +375,7 @@
                 }
               }
             },
-            "uniqueHint": {
+            "unique": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -433,28 +433,28 @@
         "oneOfAllVariables": {
           "oneOf": [
             {
-              "$ref": "#/$defs/variableDefs/$defs/stringVariable"
+              "$ref": "#/$defs/variableDefs/$defs/string"
             },
             {
-              "$ref": "#/$defs/variableDefs/$defs/booleanVariable"
+              "$ref": "#/$defs/variableDefs/$defs/boolean"
             },
             {
-              "$ref": "#/$defs/variableDefs/$defs/numberVariable"
+              "$ref": "#/$defs/variableDefs/$defs/number"
             },
             {
-              "$ref": "#/$defs/variableDefs/$defs/integerVariable"
+              "$ref": "#/$defs/variableDefs/$defs/integer"
             },
             {
-              "$ref": "#/$defs/variableDefs/$defs/listVariable"
+              "$ref": "#/$defs/variableDefs/$defs/list"
             },
             {
-              "$ref": "#/$defs/variableDefs/$defs/arrayVariable"
+              "$ref": "#/$defs/variableDefs/$defs/array"
             },
             {
-              "$ref": "#/$defs/variableDefs/$defs/selectVariable"
+              "$ref": "#/$defs/variableDefs/$defs/select"
             },
             {
-              "$ref": "#/$defs/variableDefs/$defs/multiselectVariable"
+              "$ref": "#/$defs/variableDefs/$defs/multiselect"
             }
           ]
         },
@@ -465,7 +465,7 @@
             },
             {
               "not": {
-                "$ref": "#/$defs/variableDefs/$defs/booleanVariable"
+                "$ref": "#/$defs/variableDefs/$defs/boolean"
               }
             }
           ]
@@ -511,7 +511,7 @@
             }
           ]
         },
-        "stringVariable": {
+        "string": {
           "allOf": [
             {
               "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
@@ -538,7 +538,7 @@
             }
           }
         },
-        "booleanVariable": {
+        "boolean": {
           "allOf": [
             {
               "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
@@ -561,7 +561,7 @@
             }
           }
         },
-        "numberVariable": {
+        "number": {
           "allOf": [
             {
               "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
@@ -584,7 +584,7 @@
             }
           }
         },
-        "integerVariable": {
+        "integer": {
           "allOf": [
             {
               "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
@@ -607,7 +607,7 @@
             }
           }
         },
-        "listVariable": {
+        "list": {
           "allOf": [
             {
               "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
@@ -625,10 +625,10 @@
               "description": "The items of the array",
               "oneOf": [
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/stringVariable"
+                  "$ref": "#/$defs/variableDefs/$defs/string"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/booleanVariable"
+                  "$ref": "#/$defs/variableDefs/$defs/boolean"
                 }
               ]
             },
@@ -644,7 +644,7 @@
             "items"
           ]
         },
-        "arrayVariable": {
+        "array": {
           "allOf": [
             {
               "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
@@ -674,7 +674,7 @@
             "items"
           ]
         },
-        "selectVariable": {
+        "select": {
           "allOf": [
             {
               "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
@@ -737,7 +737,7 @@
             "enum"
           ]
         },
-        "multiselectVariable": {
+        "multiselect": {
           "allOf": [
             {
               "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
