@@ -670,10 +670,6 @@
             "default": {
               "type": "string",
               "description": "The default value of the variable"
-            },
-            "optional": {
-              "type": "boolean",
-              "description": "Whether the variable is optional or not"
             }
           }
         },
