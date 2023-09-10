@@ -282,6 +282,27 @@
                 },
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/step"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/stringEnum"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/numberEnum"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/integerEnum"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/arrayEnum"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/separator"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/label"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/description"
                 }
               ]
             },
@@ -387,6 +408,186 @@
                   "const": "unique"
                 }
               }
+            },
+            "separator": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The separator hint object",
+              "properties": {
+                "type": {
+                  "const": "separator"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The separator to use for the values"
+                }
+              }
+            },
+            "enumValueObjectWithBaseProperties": {
+              "type": "object",
+              "required": [
+                "id",
+                "value"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "The locally unique id property of the enum hint value object",
+                  "pattern": "^#[a-zA-Z0-9-_]+$"
+                },
+                "value": {
+                  "description": "The value property of the enum hint value object"
+                },
+                "hints": {
+                  "type": "array",
+                  "description": "The hints to use for the enum value object",
+                  "items": {
+                    "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/oneOfAllHints"
+                  },
+                  "minItems": 1
+                }
+              }
+            },
+            "baseEnum": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The base enum hint object",
+              "required": [
+                "items"
+              ],
+              "properties": {
+                "type": {
+                  "const": "enum"
+                },
+                "items": {
+                  "description": "The items of the enum",
+                  "type": "array",
+                  "items": {
+                    "description": "The enum value object or the enum value",
+                    "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/enumValueObjectWithBaseProperties"
+                  }
+                }
+              }
+            },
+            "stringEnum": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseEnum"
+                }
+              ],
+              "description": "The enum hint object for string variable",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "numberEnum": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseEnum"
+                }
+              ],
+              "description": "The enum hint object for number variable",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "value": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "integerEnum": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseEnum"
+                }
+              ],
+              "description": "The enum hint object for integer variable",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "value": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "arrayEnum": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseEnum"
+                }
+              ],
+              "description": "The enum hint object for array variable",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "value": {
+                        "type": "array"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "label": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The label hint object",
+              "properties": {
+                "type": {
+                  "const": "label"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The label to use for the variable"
+                }
+              }
+            },
+            "description": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The description hint object",
+              "properties": {
+                "type": {
+                  "const": "description"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The description to use for the variable"
+                }
+              }
             }
           }
         },
@@ -445,69 +646,7 @@
               "$ref": "#/$defs/variableDefs/$defs/integer"
             },
             {
-              "$ref": "#/$defs/variableDefs/$defs/list"
-            },
-            {
               "$ref": "#/$defs/variableDefs/$defs/array"
-            },
-            {
-              "$ref": "#/$defs/variableDefs/$defs/select"
-            },
-            {
-              "$ref": "#/$defs/variableDefs/$defs/multiselect"
-            }
-          ]
-        },
-        "selectAllowedVariables": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/variableDefs/$defs/oneOfAllVariables"
-            },
-            {
-              "not": {
-                "$ref": "#/$defs/variableDefs/$defs/boolean"
-              }
-            }
-          ]
-        },
-        "selectEnumItems": {
-          "oneOf": [
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "label",
-                "value"
-              ],
-              "properties": {
-                "label": {
-                  "type": "string",
-                  "description": "The label of the enum value"
-                },
-                "value": {
-                  "description": "The value of the enum value",
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "integer"
-                    },
-                    {
-                      "type": "object"
-                    },
-                    {
-                      "type": "array"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "type": "string"
             }
           ]
         },
@@ -607,43 +746,6 @@
             }
           }
         },
-        "list": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
-            },
-            {
-              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
-            }
-          ],
-          "description": "The list variable object",
-          "properties": {
-            "type": {
-              "const": "list"
-            },
-            "items": {
-              "description": "The items of the array",
-              "oneOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/string"
-                },
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/boolean"
-                }
-              ]
-            },
-            "value": {
-              "type": "array"
-            },
-            "separator": {
-              "type": "string",
-              "description": "The separator to use for the array items in interactive mode"
-            }
-          },
-          "required": [
-            "items"
-          ]
-        },
         "array": {
           "allOf": [
             {
@@ -672,140 +774,6 @@
           },
           "required": [
             "items"
-          ]
-        },
-        "select": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
-            },
-            {
-              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
-            }
-          ],
-          "description": "The select variable object",
-          "properties": {
-            "type": {
-              "const": "select"
-            },
-            "items": {
-              "description": "The items of the array",
-              "$ref": "#/$defs/variableDefs/$defs/selectAllowedVariables"
-            },
-            "value": {
-              "description": "The value of the variable",
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "object"
-                },
-                {
-                  "type": "array"
-                }
-              ]
-            },
-            "enum": {
-              "type": "array",
-              "description": "The enum values of the variable",
-              "items": {
-                "$ref": "#/$defs/variableDefs/$defs/selectEnumItems"
-              }
-            },
-            "disabled": {
-              "type": "array",
-              "description": "The disabled values of the variable",
-              "items": {
-                "description": "The value of label from enum",
-                "type": "string"
-              }
-            },
-            "initial": {
-              "type": "string",
-              "description": "The label of initial value of the variable"
-            }
-          },
-          "required": [
-            "items",
-            "enum"
-          ]
-        },
-        "multiselect": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
-            },
-            {
-              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
-            }
-          ],
-          "description": "The multiselect variable object",
-          "properties": {
-            "type": {
-              "const": "multiselect"
-            },
-            "items": {
-              "description": "The items of the array",
-              "$ref": "#/$defs/variableDefs/$defs/selectAllowedVariables"
-            },
-            "value": {
-              "type": "array",
-              "description": "The value of the variable",
-              "items": {
-                "description": "The value of the variable",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "object"
-                  },
-                  {
-                    "type": "array"
-                  }
-                ]
-              }
-            },
-            "enum": {
-              "type": "array",
-              "description": "The enum values of the variable",
-              "items": {
-                "$ref": "#/$defs/variableDefs/$defs/selectEnumItems"
-              }
-            },
-            "selected": {
-              "type": "array",
-              "description": "The selected values of the variable",
-              "items": {
-                "description": "The value of label from enum",
-                "type": "string"
-              }
-            },
-            "disabled": {
-              "type": "array",
-              "description": "The disabled values of the variable",
-              "items": {
-                "description": "The value of label from enum",
-                "type": "string"
-              }
-            }
-          },
-          "required": [
-            "items",
-            "enum"
           ]
         }
       }
