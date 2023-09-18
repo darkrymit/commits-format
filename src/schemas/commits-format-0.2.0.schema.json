@@ -237,18 +237,8 @@
                 }
               }
             },
-            "hintReference": {
-              "type": "string",
-              "enum": [
-                "required",
-                "unique"
-              ]
-            },
             "oneOfAllHints": {
               "oneOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintReference"
-                },
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/required"
                 },
@@ -407,6 +397,11 @@
               "properties": {
                 "type": {
                   "const": "required"
+                },
+                "value": {
+                  "type": "boolean",
+                  "description": "Whether the variable is required or not",
+                  "default": true
                 }
               }
             },
@@ -420,6 +415,11 @@
               "properties": {
                 "type": {
                   "const": "unique"
+                },
+                "value": {
+                  "type": "boolean",
+                  "description": "Whether the variable is unique or not",
+                  "default": true
                 }
               }
             },
