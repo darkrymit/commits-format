@@ -1,0 +1,934 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Schema for the commit-format configuration file",
+  "type": "object",
+  "$defs": {
+    "variableDefs": {
+      "description": "The template variables definitions namespace",
+      "$defs": {
+        "propertiesDefs": {
+          "description": "The template variables properties definitions namespace",
+          "$defs": {
+            "id": {
+              "type": "string",
+              "description": "The globally unique id of the variable",
+              "pattern": "^#[a-zA-Z0-9-_]+$"
+            },
+            "name": {
+              "type": "string",
+              "description": "The local name of the variable",
+              "pattern": "^[a-zA-Z0-9-_]+$"
+            },
+            "path": {
+              "type": "string",
+              "description": "The path of the value of the variable in the template",
+              "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
+            },
+            "type": {
+              "type": "string",
+              "description": "The type of the variable"
+            },
+            "value": {
+              "description": "The value of the variable"
+            },
+            "hints": {
+              "type": "array",
+              "description": "The hints to use for the variable",
+              "items": {
+                "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/oneOfAllHints"
+              },
+              "minItems": 1
+            }
+          }
+        },
+        "hintDefs": {
+          "description": "The template variables hints definitions namespace",
+          "$defs": {
+            "propertiesDefs": {
+              "description": "The template variables hints properties definitions namespace",
+              "$defs": {
+                "id": {
+                  "type": "string",
+                  "description": "The globally unique id of the hint",
+                  "pattern": "^#[a-zA-Z0-9-_]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "The type of the hint"
+                }
+              }
+            },
+            "conditionDefs": {
+              "description": "The condition definitions namespace",
+              "$defs": {
+                "propertiesDefs": {
+                  "description": "The condition properties definitions namespace",
+                  "$defs": {
+                    "id": {
+                      "type": "string",
+                      "description": "The unique in array id of the condition",
+                      "pattern": "^#[a-zA-Z0-9-_]+$"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "The type of the condition"
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "The path of the value to check in the condition",
+                      "pattern": "^([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9-_]+$"
+                    }
+                  }
+                },
+                "conditionWithBaseProperties": {
+                  "type": "object",
+                  "required": [
+                    "type"
+                  ],
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/propertiesDefs/$defs/id"
+                    },
+                    "type": {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/propertiesDefs/$defs/type"
+                    }
+                  }
+                },
+                "conditionWithVariableToCheck": {
+                  "type": "object",
+                  "required": [
+                    "path"
+                  ],
+                  "properties": {
+                    "path": {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/propertiesDefs/$defs/path"
+                    }
+                  }
+                },
+                "oneOfAllConditions": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/exist"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/notExist"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/true"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/false"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/not"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/and"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/or"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/value"
+                    }
+                  ]
+                },
+                "exist": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithVariableToCheck"
+                    }
+                  ],
+                  "description": "The exist condition object",
+                  "properties": {
+                    "type": {
+                      "const": "exist"
+                    }
+                  }
+                },
+                "notExist": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithVariableToCheck"
+                    }
+                  ],
+                  "description": "The not exist condition object",
+                  "properties": {
+                    "type": {
+                      "const": "not-exist"
+                    }
+                  }
+                },
+                "true": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    }
+                  ],
+                  "description": "The always true condition object",
+                  "properties": {
+                    "type": {
+                      "const": "true"
+                    }
+                  }
+                },
+                "false": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    }
+                  ],
+                  "description": "The always false condition object",
+                  "properties": {
+                    "type": {
+                      "const": "false"
+                    }
+                  }
+                },
+                "not": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    }
+                  ],
+                  "description": "The not condition object",
+                  "properties": {
+                    "type": {
+                      "const": "not"
+                    },
+                    "condition": {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/oneOfAllConditions"
+                    }
+                  }
+                },
+                "and": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    }
+                  ],
+                  "description": "The and condition object",
+                  "properties": {
+                    "type": {
+                      "const": "and"
+                    },
+                    "conditions": {
+                      "type": "array",
+                      "description": "The conditions to check if the variable should be processed",
+                      "items": {
+                        "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/oneOfAllConditions"
+                      },
+                      "minItems": 1
+                    }
+                  }
+                },
+                "or": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    }
+                  ],
+                  "description": "The or condition object",
+                  "properties": {
+                    "type": {
+                      "const": "or"
+                    },
+                    "conditions": {
+                      "type": "array",
+                      "description": "The conditions to check if the variable should be processed",
+                      "items": {
+                        "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/oneOfAllConditions"
+                      },
+                      "minItems": 1
+                    }
+                  }
+                },
+                "value": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithVariableToCheck"
+                    }
+                  ],
+                  "description": "The value condition object (check if the value is in the values array)",
+                  "properties": {
+                    "type": {
+                      "const": "value"
+                    },
+                    "values": {
+                      "description": "The values array to check if the value is in",
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "integer"
+                          },
+                          {
+                            "type": "object"
+                          },
+                          {
+                            "type": "array"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "hintWithBaseProperties": {
+              "type": "object",
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/propertiesDefs/$defs/id"
+                },
+                "type": {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/propertiesDefs/$defs/type"
+                }
+              }
+            },
+            "oneOfAllHints": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/required"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/unique"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/min"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/max"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/round"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/step"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/enum"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/separator"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/label"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/description"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/initial"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/default"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/prompt"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/continuePrompt"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionalHints"
+                },
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/skip"
+                }
+              ]
+            },
+            "min": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The min hint object",
+              "properties": {
+                "type": {
+                  "const": "min"
+                },
+                "value": {
+                  "type": "number",
+                  "description": "The minimum for the variable have different behavior based on the type of the variable"
+                },
+                "exclusive": {
+                  "type": "boolean",
+                  "description": "Whether the minimum value is exclusive or not",
+                  "default": false
+                }
+              }
+            },
+            "max": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The max hint object",
+              "properties": {
+                "type": {
+                  "const": "max"
+                },
+                "value": {
+                  "type": "number",
+                  "description": "The maximum for the variable have different behavior based on the type of the variable"
+                },
+                "exclusive": {
+                  "type": "boolean",
+                  "description": "Whether the minimum value is exclusive or not",
+                  "default": false
+                }
+              }
+            },
+            "round": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The round hint object",
+              "properties": {
+                "type": {
+                  "const": "round"
+                },
+                "value": {
+                  "type": "integer",
+                  "description": "The number of decimal places to round the value to",
+                  "minimum": 0,
+                  "default": 2
+                }
+              }
+            },
+            "step": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The step hint object",
+              "properties": {
+                "type": {
+                  "const": "step"
+                },
+                "value": {
+                  "type": "number",
+                  "description": "The step for the number or integer variable (for integer variable the step is rounded to the nearest integer)"
+                }
+              }
+            },
+            "required": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The required hint object",
+              "properties": {
+                "type": {
+                  "const": "required"
+                },
+                "value": {
+                  "type": "boolean",
+                  "description": "Whether the variable is required or not",
+                  "default": true
+                }
+              }
+            },
+            "unique": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The unique hint object",
+              "properties": {
+                "type": {
+                  "const": "unique"
+                },
+                "value": {
+                  "type": "boolean",
+                  "description": "Whether the variable is unique or not",
+                  "default": true
+                }
+              }
+            },
+            "separator": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The separator hint object",
+              "properties": {
+                "type": {
+                  "const": "separator"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The separator to use for the values",
+                  "default": ","
+                }
+              }
+            },
+            "enumValueObjectWithBaseProperties": {
+              "type": "object",
+              "required": [
+                "id",
+                "value"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "The locally unique id property of the enum hint value object",
+                  "pattern": "^#[a-zA-Z0-9-_]+$"
+                },
+                "value": {
+                  "description": "The value property of the enum hint value object"
+                },
+                "hints": {
+                  "type": "array",
+                  "description": "The hints to use for the enum value object",
+                  "items": {
+                    "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/oneOfAllHints"
+                  },
+                  "minItems": 1
+                }
+              }
+            },
+            "enum": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The base enum hint object",
+              "required": [
+                "items"
+              ],
+              "properties": {
+                "type": {
+                  "const": "enum"
+                },
+                "items": {
+                  "description": "The items of the enum",
+                  "type": "array",
+                  "items": {
+                    "description": "The enum value object or the enum value",
+                    "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/enumValueObjectWithBaseProperties"
+                  }
+                }
+              }
+            },
+            "label": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The label hint object",
+              "properties": {
+                "type": {
+                  "const": "label"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The label to use for the variable"
+                }
+              }
+            },
+            "prompt": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The prompt hint object",
+              "properties": {
+                "type": {
+                  "const": "prompt"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The prompt to use for the variable"
+                }
+              }
+            },
+            "continuePrompt": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The continue prompt hint object",
+              "properties": {
+                "type": {
+                  "const": "continue-prompt"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The prompt to use to ask is user want to continue adding items to the array"
+                }
+              }
+            },
+            "description": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The description hint object",
+              "properties": {
+                "type": {
+                  "const": "description"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The description to use for the variable"
+                }
+              }
+            },
+            "conditionalHints": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The conditional hints hint object",
+              "properties": {
+                "type": {
+                  "const": "conditional-hints"
+                },
+                "conditions": {
+                  "type": "array",
+                  "description": "The conditions to check",
+                  "items": {
+                    "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/oneOfAllConditions"
+                  },
+                  "minItems": 1
+                },
+                "hints": {
+                  "type": "array",
+                  "description": "The hints to use for the variable if the conditions are met",
+                  "items": {
+                    "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/oneOfAllHints"
+                  },
+                  "minItems": 1
+                },
+                "elseHints": {
+                  "type": "array",
+                  "description": "The hints to use for the variable if the conditions are not met",
+                  "items": {
+                    "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/oneOfAllHints"
+                  },
+                  "minItems": 1
+                }
+              }
+            },
+            "skip": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The skip hint object",
+              "properties": {
+                "type": {
+                  "const": "skip"
+                },
+                "value": {
+                  "type": "boolean",
+                  "description": "Whether to skip the variable or not",
+                  "default": true
+                }
+              }
+            },
+            "initial": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The initial hint object",
+              "properties": {
+                "type": {
+                  "const": "initial"
+                },
+                "value": {
+                  "description": "The value to use for the initial value of the variable"
+                }
+              }
+            },
+            "default": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
+                }
+              ],
+              "description": "The default hint object",
+              "properties": {
+                "type": {
+                  "const": "default"
+                },
+                "value": {
+                  "description": "The value to use for the default value of the variable"
+                }
+              }
+            }
+          }
+        },
+        "variableWithBasicProperties": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/id"
+            },
+            "name": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/name"
+            },
+            "type": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/type"
+            },
+            "hints": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/hints"
+            }
+          }
+        },
+        "variableWithInputProperties": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/path"
+            },
+            "value": {
+              "$ref": "#/$defs/variableDefs/$defs/propertiesDefs/$defs/value"
+            }
+          }
+        },
+        "oneOfAllVariables": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/string"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/boolean"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/number"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/integer"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/array"
+            }
+          ]
+        },
+        "string": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The string variable object",
+          "properties": {
+            "type": {
+              "const": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "boolean": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The boolean variable object",
+          "properties": {
+            "type": {
+              "const": "boolean"
+            },
+            "value": {
+              "type": "boolean"
+            }
+          }
+        },
+        "number": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The numeric variable object",
+          "properties": {
+            "type": {
+              "const": "number"
+            },
+            "value": {
+              "type": "number"
+            }
+          }
+        },
+        "integer": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The integer variable object",
+          "properties": {
+            "type": {
+              "const": "integer"
+            },
+            "value": {
+              "type": "integer"
+            }
+          }
+        },
+        "array": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithBasicProperties"
+            },
+            {
+              "$ref": "#/$defs/variableDefs/$defs/variableWithInputProperties"
+            }
+          ],
+          "description": "The array variable object",
+          "properties": {
+            "type": {
+              "const": "array"
+            },
+            "items": {
+              "description": "The items of the array",
+              "$ref": "#/$defs/variableDefs/$defs/oneOfAllVariables"
+            },
+            "value": {
+              "type": "array"
+            }
+          },
+          "required": [
+            "items"
+          ]
+        }
+      }
+    },
+    "format": {
+      "type": "object",
+      "description": "A format object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the format (can include folder path as `commits/feat`)",
+          "pattern": "^([a-zA-Z0-9-_]+\/)*[a-zA-Z0-9-_]+$"
+        },
+        "aliases": {
+          "type": "array",
+          "description": "The aliases of the format",
+          "items": {
+            "type": "string",
+            "description": "The alias of the format (can include folder path as `commits/feat`)",
+            "pattern": "([a-zA-Z0-9-_]+\/)*[a-zA-Z0-9-_]+$"
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the format"
+        },
+        "variables": {
+          "type": "array",
+          "description": "The variables to use for the template",
+          "items": {
+            "$ref": "#/$defs/variableDefs/$defs/oneOfAllVariables"
+          }
+        },
+        "template": {
+          "type": "object",
+          "description": "The template for the format",
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "type": "string",
+              "description": "The mode of the render",
+              "const": "string-literal"
+            },
+            "string": {
+              "type": "string",
+              "description": "The string to use for the render"
+            },
+            "knownArgs": {
+              "type": "array",
+              "description": "The known arguments to use for the render function even if they don't have a value",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "description": "The version of the configuration file schema",
+      "pattern": "^0\\.2\\.0$"
+    },
+    "formats": {
+      "type": "array",
+      "description": "The formats array to use for the commit message",
+      "items": {
+        "$ref": "#/$defs/format"
+      }
+    }
+  },
+  "required": [
+    "version",
+    "formats"
+  ]
+}
