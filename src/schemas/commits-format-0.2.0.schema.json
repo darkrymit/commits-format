@@ -325,16 +325,7 @@
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/step"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/stringEnum"
-                },
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/numberEnum"
-                },
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/integerEnum"
-                },
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/arrayEnum"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/enum"
                 },
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/separator"
@@ -346,34 +337,22 @@
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/description"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/stringInitial"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/initial"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/booleanInitial"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/default"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/numberInitial"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/prompt"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/integerInitial"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/continuePrompt"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/arrayInitial"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionalHints"
                 },
                 {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/stringDefault"
-                },
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/booleanDefault"
-                },
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/numberDefault"
-                },
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/integerDefault"
-                },
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/arrayDefault"
+                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/skip"
                 }
               ]
             },
@@ -532,7 +511,7 @@
                 }
               }
             },
-            "baseEnum": {
+            "enum": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -552,86 +531,6 @@
                   "items": {
                     "description": "The enum value object or the enum value",
                     "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/enumValueObjectWithBaseProperties"
-                  }
-                }
-              }
-            },
-            "stringEnum": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseEnum"
-                }
-              ],
-              "description": "The enum hint object for string variable",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "value": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "numberEnum": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseEnum"
-                }
-              ],
-              "description": "The enum hint object for number variable",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "value": {
-                        "type": "number"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "integerEnum": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseEnum"
-                }
-              ],
-              "description": "The enum hint object for integer variable",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "value": {
-                        "type": "integer"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "arrayEnum": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseEnum"
-                }
-              ],
-              "description": "The enum hint object for array variable",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "properties": {
-                      "value": {
-                        "type": "array"
-                      }
-                    }
                   }
                 }
               }
@@ -759,7 +658,7 @@
                 }
               }
             },
-            "baseInitial": {
+            "initial": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -768,93 +667,14 @@
               "description": "The initial hint object",
               "properties": {
                 "type": {
-                  "const": "description"
+                  "const": "initial"
                 },
                 "value": {
                   "description": "The value to use for the initial value of the variable"
                 }
               }
             },
-            "stringInitial": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseInitial"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "booleanInitial": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseInitial"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "boolean"
-                }
-              }
-            },
-            "numberInitial": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseInitial"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "number"
-                }
-              }
-            },
-            "integerInitial": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseInitial"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "integer"
-                }
-              }
-            },
-            "arrayInitial": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseInitial"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "array",
-                  "items": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "integer"
-                      },
-                      {
-                        "type": "object"
-                      },
-                      {
-                        "type": "array"
-                      }
-                    ]
-                  }
-                }
-              }
-            },
-            "baseDefault": {
+            "default": {
               "allOf": [
                 {
                   "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/hintWithBaseProperties"
@@ -863,89 +683,10 @@
               "description": "The default hint object",
               "properties": {
                 "type": {
-                  "const": "description"
+                  "const": "default"
                 },
                 "value": {
                   "description": "The value to use for the default value of the variable"
-                }
-              }
-            },
-            "stringDefault": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseDefault"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "string"
-                }
-              }
-            },
-            "booleanDefault": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseDefault"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "boolean"
-                }
-              }
-            },
-            "numberDefault": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseDefault"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "number"
-                }
-              }
-            },
-            "integerDefault": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseDefault"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "integer"
-                }
-              }
-            },
-            "arrayDefault": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/baseDefault"
-                }
-              ],
-              "properties": {
-                "value": {
-                  "type": "array",
-                  "items": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "integer"
-                      },
-                      {
-                        "type": "object"
-                      },
-                      {
-                        "type": "array"
-                      }
-                    ]
-                  }
                 }
               }
             }
