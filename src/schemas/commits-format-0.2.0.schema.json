@@ -854,10 +854,6 @@
             },
             "value": {
               "type": "array"
-            },
-            "continuePrompt": {
-              "type": "string",
-              "description": "The prompt to use to ask is user want to continue adding items to the array"
             }
           },
           "required": [
