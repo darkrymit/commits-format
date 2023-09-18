@@ -120,6 +120,15 @@
                       "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/false"
                     },
                     {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/not"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/and"
+                    },
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/or"
+                    },
+                    {
                       "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/value"
                     }
                   ]
@@ -179,6 +188,64 @@
                   "properties": {
                     "type": {
                       "const": "false"
+                    }
+                  }
+                },
+                "not": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    }
+                  ],
+                  "description": "The not condition object",
+                  "properties": {
+                    "type": {
+                      "const": "not"
+                    },
+                    "condition": {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/oneOfAllConditions"
+                    }
+                  }
+                },
+                "and": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    }
+                  ],
+                  "description": "The and condition object",
+                  "properties": {
+                    "type": {
+                      "const": "and"
+                    },
+                    "conditions": {
+                      "type": "array",
+                      "description": "The conditions to check if the variable should be processed",
+                      "items": {
+                        "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/oneOfAllConditions"
+                      },
+                      "minItems": 1
+                    }
+                  }
+                },
+                "or": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/conditionWithBaseProperties"
+                    }
+                  ],
+                  "description": "The or condition object",
+                  "properties": {
+                    "type": {
+                      "const": "or"
+                    },
+                    "conditions": {
+                      "type": "array",
+                      "description": "The conditions to check if the variable should be processed",
+                      "items": {
+                        "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/oneOfAllConditions"
+                      },
+                      "minItems": 1
                     }
                   }
                 },
@@ -650,7 +717,7 @@
                 },
                 "conditions": {
                   "type": "array",
-                  "description": "The conditions to check if the variable should be processed",
+                  "description": "The conditions to check",
                   "items": {
                     "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/conditionDefs/$defs/oneOfAllConditions"
                   },
@@ -659,6 +726,14 @@
                 "hints": {
                   "type": "array",
                   "description": "The hints to use for the variable if the conditions are met",
+                  "items": {
+                    "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/oneOfAllHints"
+                  },
+                  "minItems": 1
+                },
+                "elseHints": {
+                  "type": "array",
+                  "description": "The hints to use for the variable if the conditions are not met",
                   "items": {
                     "$ref": "#/$defs/variableDefs/$defs/hintDefs/$defs/oneOfAllHints"
                   },
