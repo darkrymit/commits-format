@@ -758,10 +758,6 @@
             },
             "value": {
               "type": "string"
-            },
-            "default": {
-              "type": "string",
-              "description": "The default value of the variable"
             }
           }
         },
@@ -781,10 +777,6 @@
             },
             "value": {
               "type": "boolean"
-            },
-            "initial": {
-              "type": "boolean",
-              "description": "The initial value of the variable"
             }
           }
         },
@@ -804,10 +796,6 @@
             },
             "value": {
               "type": "number"
-            },
-            "initial": {
-              "type": "number",
-              "description": "The initial value of the variable"
             }
           }
         },
@@ -827,10 +815,6 @@
             },
             "value": {
               "type": "integer"
-            },
-            "initial": {
-              "type": "integer",
-              "description": "The initial value of the variable"
             }
           }
         },
