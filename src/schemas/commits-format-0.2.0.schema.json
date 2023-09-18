@@ -373,7 +373,8 @@
                 },
                 "exclusive": {
                   "type": "boolean",
-                  "description": "Whether the minimum value is exclusive or not"
+                  "description": "Whether the minimum value is exclusive or not",
+                  "default": false
                 }
               }
             },
@@ -394,7 +395,8 @@
                 },
                 "exclusive": {
                   "type": "boolean",
-                  "description": "Whether the minimum value is exclusive or not"
+                  "description": "Whether the minimum value is exclusive or not",
+                  "default": false
                 }
               }
             },
@@ -412,7 +414,8 @@
                 "value": {
                   "type": "integer",
                   "description": "The number of decimal places to round the value to",
-                  "minimum": 0
+                  "minimum": 0,
+                  "default": 2
                 }
               }
             },
@@ -482,7 +485,8 @@
                 },
                 "value": {
                   "type": "string",
-                  "description": "The separator to use for the values"
+                  "description": "The separator to use for the values",
+                  "default": ","
                 }
               }
             },
